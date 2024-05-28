@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>在线教育平台| 首页</title>
+	<link rel="stylesheet" href="assets/css/style-liberty.css">
+	<!-- 加载本地字体包 -->
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body id="home">
+	<section class=" w3l-header-4">
+		<!--header-->
+		<!-- 网站标题 -->
+		<header id="site-header" >
+			<!-- 标头元素的容器 -->
+			<div class="container">
+				 <!-- 导航栏，使用Bootstrap的navbar组件 -->
+				<nav class="navbar navbar-expand-lg navbar-dark stroke">
+					<!-- 网站Logo，链接到首页 -->
+					<h1><a class="navbar-brand" href="index.html">
+							<span class="fa fa-book"></span> 在线教育平台
+						</a></h1>
+					<!-- 打开/关闭导航的按钮 -->
+					<button class="navbar-toggler  collapsed bg-gradient" type="button" data-toggle="collapse"
+						data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+						<span class="navbar-toggler-icon fa icon-close fa-times"></span>
+					</button>
+					<!-- 菜单项折叠后的内容 -->
+					<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+						<!-- 导航栏的各个菜单项 -->
+						<ul class="navbar-nav ml-auto">
+							<li class="nav-item active">
+								<a class="nav-link" href="index.html">首页 <span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item @@about__active">
+								<a class="nav-link" href="about.html">关于我们</a>
+							</li>
+							<li class="nav-item @@services__active">
+								<a class="nav-link" href="services.html">服务</a>
+							</li>
+							<!-- 下拉目录页 -->
+							<li class="nav-item dropdown @@pages__active">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">
+									目录页 <span class="fa fa-angle-down"></span>
+								</a>
+								<!-- 下拉菜单与博客链接 -->
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="blog.html">博客邮件</a>
+									<a class="dropdown-item" href="blog-single.html">我的博客</a>
+								</div>
+							</li>
+							<li class="nav-item mr-2">
+								<a href="contact.html" class="btn btn-primary register d-lg-block btn-style">联系我们</a>
+							</li>
+						</ul>
+					</div>
+					<!-- 切换白天夜间主题 -->
+					<div class="mobile-position">
+						<label class="theme-selector">
+							<input type="checkbox" id="themeToggle">
+							<i class="gg-sun"></i>
+							<i class="gg-moon"></i>
+						</label>
+					</div>
+				</nav>
+			</div>
+		</header>
+	</section>
+	<!-- 引入jQuery库，用于简化JavaScript操作DOM -->
+	<script src="assets/js/jquery-3.3.1.min.js"></script> 
+	<!-- 引入Bootstrap JavaScript，提供交互式组件和功能，如模态框、下拉菜单等 -->
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script>
+		// 当窗口滚动时，检测滚动位置。当滚动高度大于80像素时，给ID为"site-header"的元素添加"nav-fixed"类，使其保持固定在顶部。
+		$(window).on("scroll", function () {
+			var scroll = $(window).scrollTop();
+			if (scroll >= 80) {
+				$("#site-header").addClass("nav-fixed");
+			} else {
+				$("#site-header").removeClass("nav-fixed");
+			}
+		});
+//  当导航折叠按钮被点击时，切换元素的"active"类，控制导航栏的展开和折叠状态。
+		//主导航活动类添加删除
+		$(".navbar-toggler").on("click", function () {
+			$("header").toggleClass("active");
+		});
+		//页面加载完成后，检查窗口宽度是否大于991px（通常是平板设备以上），若满足条件，移除的"active"类。
+		$(document).on("ready", function () {
+			if ($(window).width() > 991) {
+				$("header").removeClass("active");
+			}
+			// 当窗口大小改变时，再次检查并调整"active"类。
+			$(window).on("resize", function () {
+				if ($(window).width() > 991) {
+					$("header").removeClass("active");
+				}
+			});
+		});
+	</script>
+	<!-- 禁用导航条处于活动状态的正文滚动条 -->
+	<script>
+		// 点击导航折叠按钮时，添加或移除body的"noscroll"类，禁用或启用正文滚动条。
+		$(function () {
+			$('.navbar-toggler').click(function () {
+				$('body').toggleClass('noscroll');
+			})
+		});
+	</script>
+	<!-- 禁用导航条处于活动状态的正文滚动条 -->
+	<!--//主题切换黑暗和光明模式脚本-->
+	<script>
+		// 获取文档的body元素，后续操作将针对这个元素进行。
+		const bodyElement = document.querySelector('body');
+		// 获取id为"themeToggle"的元素，通常是一个切换主题的开关按钮。
+		const themeToggle = document.querySelector('#themeToggle');
+		// 获取用户的颜色模式偏好，比如暗色模式。
+		const darkModeMql = window.matchMedia('(prefers-color-scheme: dark)');
+		// 从本地存储获取主题，如果没有则调用userPreference函数。
+		const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : userPreference(darkModeMql);
+		// 如果有主题，应用到body元素并设置开关状态。
+		if (currentTheme) {
+			bodyElement.classList.add(currentTheme);
+			if (currentTheme === 'dark') {
+				themeToggle.checked = true;
+			}
+		}
+		// 根据颜色模式偏好设置body的样式，返回当前主题类型（'dark'或''）。
+		function userPreference(e) {
+			if (e.matches) {
+				bodyElement.classList.add("dark");
+				return "dark"
+			} else {
+				bodyElement.classList.remove("dark");
+				return ""
+			}
+		}
+		// 添加事件监听器，当颜色模式偏好改变时，调用userPreference函数。
+		darkModeMql.addListener(userPreference);
+		// 处理主题切换事件，根据开关的状态添加或移除'dark'类，并保存主题到本地存储。
+		function themeSwitcher(e) {
+			if (e.target.checked) {
+				bodyElement.classList.add('dark');
+				localStorage.setItem('theme', 'dark');
+			} else {
+				bodyElement.classList.remove('dark');
+				localStorage.setItem('theme', '');
+			}
+		}
+		// 绑定主题开关的'change'事件，触发themeSwitcher函数。
+		themeToggle.addEventListener('change', themeSwitcher);
+	</script>
+	<!--主题切换黑暗和光明模式脚本//-->
+	<section class="w3l-hero-headers-9" id="home">
+		<div class="slide header11" data-selector="header11">
+			<div class="container">
+				<div class="banner-text ">
+					<h5 class=" ">在线教育<br> 最好的成长方式!</h5>
+					<p class=" ">在当今这个瞬息万变的时代，知识的边界被无限拓展，学习不再受制于地域与时间。欢迎踏入在线教育的新纪元，这里是您智慧启航的港湾，也是梦想加速的跑道</p>
+					<div>
+						<form class="form-inline forms-gds" action="#" method="post">
+							<input type="email" name="" placeholder="Email" required="">
+							<button class="btn btn-style btn-primary">描述</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 这是一个名为"call-to-action_9"的w3l类的section元素 -->
+	<section class="w3l-call-to-action_9">
+		<div class="call-w3">
+			<!-- 在容器内，包含了一个用于显示预约表单内容的div -->
+			<div class="container">
+				<div class="booking-form-content">
+					<!-- 主标题和副标题部分 -->
+					<div class="main-titles-head ">
+						<h3 class="header-name">你能学习任何事情
+						</h3>
+						<p class="tiltle-para editContent ">立即加入我们，探索无限知识的海洋，让学习成为一种生活方式，成就更加卓越的自己！</p>
+					</div>
+					<!-- 展示六个学习特点的网格布局 -->
+					<div class="row text-center">
+						<!-- 每个特点占据一行，每个特点的div为col-lg-4 col-md-6 -->
+						<div class="col-lg-4 col-md-6 propClone about-line-top ">
+							<!-- 单元格内的第一个div，包含图标和链接 -->
+							<div class="area-box color-white editContent box-active">
+								<div class="icon-back"><span class="fa fa-thumbs-up"></span></div>
+
+								<h5><a href="blog.html" class="editContent">
+										解锁学习新维度</a></h5>
+								<p class="para editContent">我们汇集全球顶尖教育资源，让您在家中就能享受国际一流的教育体验。</p>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 propClone about-line-top ">
+							<div class="area-box color-white editContent">
+								<div class="icon-back"><span class="fa fa-users"></span></div>
+
+								<h5><a href="blog.html" class="editContent">
+										灵活高效，学习由你主导</a></h5>
+								<p class="para editContent">告别传统教育的束缚，我们的平台提供24小时不间断的学习机会。</p>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 propClone about-line-top">
+							<div class="area-box color-white editContent box-active">
+								<div class="icon-back"><span class="fa fa-pencil"></span></div>
+
+								<h5><a href="blog.html" class="editContent">
+										个性化定制，成就你我</a></h5>
+								<p class="para editContent">每个人的学习路径都是独一无二的。通过智能算法，我们为您量身打造个性化学习计划</p>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 propClone about-line-top ">
+							<div class="area-box color-white editContent">
+								<div class="icon-back"><span class="fa fa-book"></span></div>
+
+								<h5><a href="blog.html" class="editContent">
+										互动交流，共享知识盛宴</a></h5>
+								<p class="para editContent">在这里，学习不再是孤独的旅程。加入全球学习者的社群，与志同道合的朋友交流心得，向行业大咖提问解惑。每一次思想的碰撞，都将激发无限可能。</p>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 propClone about-line-top ">
+							<div class="area-box color-white editContent box-active">
+								<div class="icon-back"><span class="fa fa-star"></span></div>
+
+								<h5><a href="blog.html" class="editContent">
+										投资自己，拥抱未来</a></h5>
+								<p class="para editContent">在这个快速变化的世界，持续学习是通往成功的金钥匙。选择在线教育，就是投资一个不断进步、适应未来的自己</p>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 propClone about-line-top ">
+							<div class="area-box color-white editContent">
+								<div class="icon-back"><span class="fa fa-check"></span></div>
+
+								<h5><a href="blog.html" class="editContent">
+										知识之旅，共创美好</a></h5>
+								<p class="para editContent">无论您是对星辰大海充满好奇的小学者，还是渴望在专业领域深造的职场精英，海量课程一键触达</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 个性化学习部分 -->
+	<section class="w3l-specification-6">
+		<div class="specification-layout editContent">
+			<div class="container">
+				<!-- 栅格系统 -->
+				<div class="grid">
+					<!-- 过渡效果 -->
+					<figure class="effect-apollo ser-bg1">
+						<figcaption>
+							<!-- 标题链接 -->
+							<h5><a href="#url">个性化学习</a></h5>
+							<!-- 描述文字 -->
+							<p class="para">量身定制学习路径。从基础巩固到技能进阶，每一步都精准匹配您的需求与兴趣</p>
+						</figcaption>
+					</figure>
+					<figure class="effect-apollo ser-bg2">
+						<figcaption>
+							<h5><a href="#url">因材施教</a></h5>
+							<p class="para">我们深知，每位学习者都是独一无二的。因此，我们的平台采用先进的算法，让学习更高效，成长更显著</p>
+						</figcaption>
+					</figure>
+					<figure class="effect-apollo ser-bg3">
+						<figcaption>
+							<h5><a href="#url">随时随地，灵活学习</a></h5>
+							<p class="para">打破空间限制，时间由您掌控。无论是在家中舒适的角落，还是通勤的地铁上</p>
+						</figcaption>
+					</figure>
+					<figure class="effect-apollo ser-bg4">
+						<figcaption>
+							<h5><a href="#url">互动式课堂</a></h5>
+							<p class="para">告别单向灌输，拥抱双向交流。我们的在线课程融入实时互动、小组讨论、即时反馈等元素，激发您的思考与创造力</p>
+						</figcaption>
+					</figure>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 权威师资部分 -->
+	<section class="w3l-covers-18">
+		<div class="covers-main editContent">
+			<div class="container">
+				<div class="main-titles-head ">
+					<h3 class="header-name">权威师资，品质保证</h3>
+					<p class="tiltle-para editContent ">集结行业精英与学术大咖，我们的教师团队以其深厚的专业底蕴和丰富的教学经验，确保每一堂课都是知识与灵感的盛宴。跟随大师脚步，让学习之旅更加精彩纷呈。
+					</p>
+				</div>
+				<div class="gallery-image row">
+					<div class="col-lg-4 col-md-6">
+						<img src="assets/images/b2.jpg" alt="product" class="img-responsive ">
+						<div class="img-box">
+							<h5 class="mb-2"><a href="about.html">技能实战</a></h5>
+							<div class="blog-date">
+								<p class="pos-date"><span class="fa fa-calendar mr-1"></span>7 April</p>
+								<p class="pos-date"><span class="fa fa-eye mr-1"></span> 3286 Views</p>
+							</div>
+							<p class="para">理论结合实践，是掌握技能的关键。我们不仅传授知识，更注重应用能力的培养。</p>
+						</div>
+					</div>
+					<div class=" col-lg-4 col-md-6 top-top2">
+						<img src="assets/images/b1.jpg" alt="product" class="img-responsive ">
+						<div class="img-box">
+							<h5 class="mb-2"><a href="about.html">学以致用</a></h5>
+							<div class="blog-date">
+								<p class="pos-date"><span class="fa fa-calendar mr-1"></span>7 April</p>
+								<p class="pos-date"><span class="fa fa-eye mr-1"></span> 3286 Views</p>
+							</div>
+							<p class="para">通过项目实战、模拟演练等形式，让您在实践中深化理解，将所学转化为解决问题的能力。</p>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 top-top">
+						<img src="assets/images/b3.jpg" alt="product" class="img-responsive ">
+						<div class="img-box">
+							<h5 class="mb-2"><a href="about.html">社群互助</a></h5>
+							<div class="blog-date">
+								<p class="pos-date"><span class="fa fa-calendar mr-1"></span>7 April</p>
+								<p class="pos-date"><span class="fa fa-eye mr-1"></span> 3286 Views</p>
+							</div>
+							<p class="para">加入我们的学习社群，与志同道合的伙伴并肩前行。分享心得、解答疑惑、相互激励</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+	<!-- 团队介绍部分 -->
+	<section class="w3l-teams-15">
+		<div class="team-single-main editContent">
+			<div class="container">
+
+				<div class="row">
+					<!-- 左侧图片 -->
+					<div class="column2 col-lg-6">
+
+						<img src="assets/images/b6.jpg" alt="product" class="img-responsive ">
+					</div>
+					<!-- 右侧内容 -->
+					<div class="nature-row  coloum4 col-lg-6 align-self">
+						<h6 class="small-title">拥抱未来教育 </h6>
+						<h3>您的在线学习伙伴! </h3>
+						<p class="para editContent text ">
+							在这个日新月异的时代，知识如同浩瀚星海，广阔无垠。在线教育，作为一叶智慧之舟，正引领着每一个渴望探索的心灵，穿越信息的浪潮，抵达梦想的彼岸。</p>
+						<!-- 链接按钮 -->
+						<a href="about.html" class="action-button btn mt-lg-5 mt-4">更多</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+	<!-- 客户评价部分 -->
+	<section class="w3l-clients" id="client">
+		<div class="call-w3">
+			<div class="container">
+				<!-- 滑动轮播 -->
+				<div class="main-slider text-center">
+					<!-- 滑块结构 -->
+					<div class="csslider infinity" id="slider1">
+						<!-- 三个轮播项 -->
+						<input type="radio" name="slide" checked="checked" id="slides_1">
+						<input type="radio" name="slide" id="slides_2">
+						<input type="radio" name="slide" id="slides_3">
+						<ul>
+							<li>
+								<div class="slider-info">
+									<div class="d-grid hh14-text">
+										<img class="img-responsive" src="assets/images/c3.jpg" alt="image">
+										<div class="hh14-info">
+											<h6>权威师资</h6>
+											<p class="para">集结行业精英与学术大咖，我们的教师团队以其深厚的专业底蕴和丰富的教学经验，确保每一堂课都是知识与灵感的盛宴。跟随大师脚步，让学习之旅更加精彩纷呈。</p>
+											<h4>张美丽</h4>
+										</div>
+
+									</div>
+								</div>
+							</li>
+
+							<li>
+								<div class="slider-info">
+									<div class="d-grid hh14-text">
+										<img class="img-responsive" src="assets/images/c1.jpg" alt="image">
+										<div class="hh14-info">
+											<h6>世界上最好的课程</h6>
+											<p class="para">课程质量的关键在于教师的专业知识、教学方法和激发学
+												生潜能的能力。世界顶级的课程往往由经验丰富的教师授课，采用创新的教学
+												策略，激发学生主动学习。</p>
+											<h4>Nike samson</h4>
+										</div>
+
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="slider-info">
+									<div class="d-grid hh14-text">
+										<img class="img-responsive" src="assets/images/c2.jpg" alt="image">
+										<div class="hh14-info">
+											<h6>热门课程</h6>
+											<p class="para">指在某个特定的学校、机构或在线平台上备受欢迎的课程。</p>
+											<h4>Milky Deo</h4>
+										</div>
+
+									</div>
+								</div>
+							</li>
+						</ul>
+						<!-- 导航按钮 -->
+						<div class="navigation">
+							<!-- 导航按钮结构 -->
+							<div>
+								<label for="slides_1"></label>
+								<label for="slides_2"></label>
+								<label for="slides_3"></label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 这是一个类名为 "w3l-footer-29-main" 的 section 元素 -->
+	<section class="w3l-footer-29-main">
+		<!-- 在这里，我们有一个包含四个部分的页脚布局 -->
+		<div class="footer-29 py-5">
+			<!-- 容器元素，用于在不同设备上保持布局一致性 -->
+			<div class="container">
+				<!-- 使用网格系统，分为四个列 -->
+				<div class="grid-col-4 footer-top-29">
+					<!-- 第一个部分：关于我们 -->
+					<div class="footer-list-29 footer-1">
+						<h2 class="footer-title-29">关于我们</h2>
+						<p class="para">加入我们的学习社群，与志同道合的伙伴并肩前行。分享心得、解答疑惑、相互激励，在这个温暖的大家庭中，每个人都是彼此成长路上的灯塔。</p>
+						<!-- 社交媒体链接 -->
+						<div class="main-social-footer-29">
+							<!-- Facebook链接 -->
+							<a href="#facebook" class="facebook"><span class="fa fa-facebook"></span></a>
+							<!-- Twitter链接 -->
+							<a href="#twitter" class="twitter"><span class="fa fa-twitter"></span></a>
+							<!-- Instagram链接 -->
+							<a href="#instagram" class="instagram"><span class="fa fa-instagram"></span></a>
+							<!-- Google+链接 -->
+							<a href="#google-plus" class="google-plus"><span class="fa fa-google-plus"></span></a>
+							<!-- LinkedIn链接 -->
+							<a href="#linkedin" class="linkedin"><span class="fa fa-linkedin"></span></a>
+						</div>
+					</div>
+					<!-- 第二个部分：最新热点 -->
+					<div class="footer-list-29 footer-2">
+						<!-- 列表项，包含热点话题 -->
+						<ul>
+							<h6 class="footer-title-29">最新热点</h6>
+							<li><a href="#pages">程序设计语言</a>
+								<h5><a href="#pages">管理员</a></h5>
+							</li>
+							<li><a href="#pages">研究生招生</a>
+								<h5><a href="#pages">管理员</a></h5>
+							</li>
+							<li><a href="#pages">致力于教育</a>
+								<h5><a href="#pages">管理员</a></h5>
+							</li>
+						</ul>
+					</div>
+					<!-- 第三个部分：联系方式 -->
+					<div class="footer-list-29 footer-3">
+						<div class="properties">
+							<h6 class="footer-title-29">联系我们</h6>
+
+							<ul>
+								<li>
+									<p><span class="fa fa-map-marker"></span>加利福尼亚州, #32841 block,
+										#221DRS 75 枫树大厦，
+										英国。</p>
+								</li>
+								<li><a href="tel:+7-800-999-800"><span class="fa fa-phone"></span> +(21)-255-999-8888</a></li>
+								<li><a href="#" class="mail"><span class="fa fa-envelope-open-o"></span> <span
+											class="__cf_email__">admin@domain.com</span></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="footer-list-29 footer-4">
+						<ul>
+							<h6 class="footer-title-29">相关链接</h6>
+							<li><a href="#url">论坛</a></li>
+							<li><a href="#url">我们的老师</a></li>
+							<li><a href="#url">活动预告</a></li>
+							<li><a href="#url">热门课程</a></li>
+							<li><a href="#url">已验证课程</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class=" bottom-copies row">
+					<p class="copy-footer-29 col-lg-8">© Tutee. 版权所有 |</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- 返回顶部按钮 -->
+	<button onclick="topFunction()" id="movetop" title="Go to top">
+		<span class="fa fa-level-up"></span>
+	</button>
+	<!-- JavaScript代码，用于实现滚动到顶部的功能 -->
+	<script>
+		// 当页面滚动时，检测是否超过20像素
+		window.onscroll = function () {
+			scrollFunction()
+		};
+		// 当滚动到顶部时隐藏或显示返回顶部的按钮
+		function scrollFunction() {
+			if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+				document.getElementById("movetop").style.display = "block";
+			} else {
+				document.getElementById("movetop").style.display = "none";
+			}
+		}
+
+		// 点击按钮时，将页面滚动到顶部
+		function topFunction() {
+			// scrollTop动画慢慢返回
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+		}
+	</script>
+</body>
+
+</html>
